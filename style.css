@@ -1,0 +1,329 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+  background-color: #07080c;
+  color: #e4e6eb;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fundo Animado Gotham / Batman */
+.gotham-bg {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 50% 100%, #141824 0%, #050608 75%);
+  z-index: -1;
+  overflow: hidden;
+}
+
+.bat-signal {
+  position: absolute;
+  top: 8%;
+  right: 10%;
+  width: 260px;
+  height: 260px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245, 197, 24, 0.22) 0%, rgba(245, 197, 24, 0.05) 55%, transparent 75%);
+  box-shadow: 0 0 80px rgba(245, 197, 24, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseSignal 6s ease-in-out infinite alternate;
+}
+
+.bat-signal::before {
+  content: "";
+  width: 150px;
+  height: 75px;
+  background-color: rgba(7, 8, 12, 0.85);
+  clip-path: polygon(
+    50% 18%, 54% 5%, 58% 22%, 76% 12%, 100% 28%,
+    84% 48%, 92% 72%, 68% 62%, 50% 92%, 32% 62%,
+    8% 72%, 16% 48%, 0% 28%, 24% 12%, 42% 22%, 46% 5%
+  );
+}
+
+@keyframes pulseSignal {
+  0% {
+    transform: translate(0, 0) scale(0.95) rotate(-4deg);
+    opacity: 0.65;
+  }
+  100% {
+    transform: translate(-25px, 15px) scale(1.06) rotate(4deg);
+    opacity: 1;
+  }
+}
+
+.bat {
+  position: absolute;
+  width: 24px;
+  height: 12px;
+  background: #000;
+  opacity: 0.7;
+  clip-path: polygon(
+    50% 20%, 55% 0%, 60% 25%, 80% 10%, 100% 30%,
+    82% 55%, 65% 50%, 50% 85%, 35% 50%, 18% 55%,
+    0% 30%, 20% 10%, 40% 25%, 45% 0%
+  );
+  animation: flyBat linear infinite;
+}
+
+@keyframes flyBat {
+  0% {
+    transform: translateX(-10vw) translateY(0) scale(0.7);
+  }
+  50% {
+    transform: translateX(50vw) translateY(-35px) scale(1);
+  }
+  100% {
+    transform: translateX(110vw) translateY(10px) scale(0.8);
+  }
+}
+
+/* Estrutura Principal */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.badge {
+  display: inline-block;
+  background: rgba(245, 197, 24, 0.12);
+  color: #f5c518;
+  border: 1px solid rgba(245, 197, 24, 0.4);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+header h1 {
+  font-size: 2.6rem;
+  letter-spacing: 3px;
+  color: #ffffff;
+  text-shadow: 0 0 20px rgba(245, 197, 24, 0.25);
+}
+
+.subtitle {
+  color: #9ca3af;
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+/* Navegação por Abas */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  background: rgba(20, 24, 36, 0.85);
+  color: #cbd5e1;
+  border: 1px solid #262c3d;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.tab-btn:hover {
+  border-color: #f5c518;
+  color: #f5c518;
+}
+
+.tab-btn.active {
+  background: #f5c518;
+  color: #07080c;
+  border-color: #f5c518;
+  box-shadow: 0 0 18px rgba(245, 197, 24, 0.35);
+}
+
+/* Conteúdo das Abas */
+.content-box {
+  background: rgba(14, 17, 26, 0.88);
+  border: 1px solid #23293a;
+  border-radius: 14px;
+  padding: 32px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6);
+}
+
+.tab-content {
+  display: none;
+  animation: fadeIn 0.35s ease;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  color: #f5c518;
+  margin-bottom: 18px;
+  border-bottom: 1px solid #262c3d;
+  padding-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+p {
+  line-height: 1.7;
+  color: #d1d5db;
+  margin-bottom: 14px;
+}
+
+/* Skills */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.skill {
+  background: #181d2c;
+  border: 1px solid #30384f;
+  color: #f5c518;
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Cards (Hobbies, Projetos, Metas) */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.card {
+  background: #121622;
+  border: 1px solid #252c40;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: #f5c518;
+}
+
+.card h3 {
+  color: #ffffff;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: #f5c518;
+  background: rgba(245, 197, 24, 0.1);
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+/* Linha do Tempo (Conquistas) */
+.timeline {
+  list-style: none;
+  border-left: 2px solid #f5c518;
+  padding-left: 20px;
+  margin-left: 8px;
+}
+
+.timeline li {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: #f5c518;
+  border-radius: 50%;
+}
+
+.timeline strong {
+  display: block;
+  color: #ffffff;
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.timeline span {
+  color: #9ca3af;
+  font-size: 0.95rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+footer a {
+  color: #f5c518;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Controle Nativo das Abas por Teclado e Clique */
+.tabs-wrapper input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+#tab-sobre:checked ~ .tabs label[for="tab-sobre"],
+#tab-hobbies:checked ~ .tabs label[for="tab-hobbies"],
+#tab-projetos:checked ~ .tabs label[for="tab-projetos"],
+#tab-conquistas:checked ~ .tabs label[for="tab-conquistas"],
+#tab-metas:checked ~ .tabs label[for="tab-metas"] {
+  background: var(--bat-yellow);
+  color: #050609;
+  font-weight: 800;
+  border-color: var(--bat-yellow);
+  box-shadow: 0 0 25px var(--bat-yellow-glow);
+  transform: translateY(-2px);
+}
+
+#tab-sobre:checked ~ .content-box #sobre,
+#tab-hobbies:checked ~ .content-box #hobbies,
+#tab-projetos:checked ~ .content-box #projetos,
+#tab-conquistas:checked ~ .content-box #conquistas,
+#tab-metas:checked ~ .content-box #metas {
+  display: block;
+  animation: hudSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
