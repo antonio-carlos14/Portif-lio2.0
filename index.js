@@ -1,10 +1,9 @@
-// Seleciona todos os botões das abas e todos os blocos de conteúdo correspondentes
+/* // Seleciona todos os botões das abas e todos os blocos de conteúdo correspondentes
 const buttons = document.querySelectorAll('.tab-btn')
 const contents = document.querySelectorAll('.tab-content')
 
-/**
- * Função responsável por ativar uma aba específica com base no seu índice (posição).
- */
+//Função responsável por ativar uma aba específica com base no seu índice (posição).
+ 
 function abrirAba(index) {
   // Evita erros caso o índice passado seja inválido (menor que 0 ou maior que o total de botões)
   if (index < 0 || index >= buttons.length) return
@@ -70,3 +69,4 @@ for (let i = 0; i < 12; i++) {
   // Adiciona o morcego configurado dentro do container no HTML
   batsContainer.appendChild(bat)
 }
+*/
