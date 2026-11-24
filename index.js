@@ -1,4 +1,4 @@
-/* // Seleciona todos os botões das abas e todos os blocos de conteúdo correspondentes
+// Seleciona todos os botões das abas e todos os blocos de conteúdo correspondentes
 const buttons = document.querySelectorAll('.tab-btn')
 const contents = document.querySelectorAll('.tab-content')
 
@@ -69,4 +69,3 @@ for (let i = 0; i < 12; i++) {
   // Adiciona o morcego configurado dentro do container no HTML
   batsContainer.appendChild(bat)
 }
-*/
