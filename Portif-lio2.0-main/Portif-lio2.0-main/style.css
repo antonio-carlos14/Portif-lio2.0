@@ -1,0 +1,813 @@
+/* Variáveis globais de cor do tema (amarelo do Batman e seu brilho) */
+:root {
+  --bat-yellow: #e5b82b;
+  --bat-yellow-glow: rgba(229, 184, 43, 0.32);
+}
+
+/* Reset universal corrigido: remove margens/espaçamentos padrão, padroniza box-sizing e fonte */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Estilo base da página: fundo escuro, texto claro, altura mínima e bloqueio de rolagem horizontal */
+body {
+  background-color: #06080c;
+  color: #e2e6ee;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Fundo animado de Gotham fixo na tela inteira atrás do conteúdo */
+.gotham-bg {
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    #040609 0%,
+    #0d141d 42%,
+    #18222e 78%,
+    #222d3b 100%
+  );
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Clarão geral no céu quando os raios disparam */
+.lightning-flash {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 52% 16%, rgba(210, 224, 240, 0.34), transparent 68%);
+  opacity: 0;
+  animation: lightning 9s infinite;
+}
+
+/* Área superior do SVG dos relâmpagos */
+.lightning-bolts {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 65%;
+  z-index: 1;
+}
+
+/* Estilo visual e brilho dos raios */
+.bolt {
+  fill: none;
+  stroke: #f1f5f9;
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0 8px #cbd5e1) drop-shadow(0 0 20px #ffffff);
+  opacity: 0;
+}
+
+/* Durações diferentes para cada raio bater em momentos distintos */
+.bolt-1 {
+  animation: boltStrike1 9s infinite;
+}
+
+.bolt-2 {
+  animation: boltStrike2 13s infinite;
+}
+
+/* Animação do clarão no céu */
+@keyframes lightning {
+  0%, 86%, 90%, 94%, 100% { opacity: 0; }
+  87% { opacity: 0.85; }
+  88.5% { opacity: 0.2; }
+  91% { opacity: 1; }
+}
+
+/* Animação do raio 1 */
+@keyframes boltStrike1 {
+  0%, 86%, 90%, 94%, 100% { opacity: 0; }
+  87% { opacity: 1; }
+  88.5% { opacity: 0.15; }
+  91% { opacity: 0.95; }
+}
+
+/* Animação do raio 2 */
+@keyframes boltStrike2 {
+  0%, 42%, 46%, 100% { opacity: 0; }
+  43% { opacity: 0.95; }
+  44% { opacity: 0.2; }
+  44.8% { opacity: 0.85; }
+}
+
+/* Feixes de holofotes recortados em formato de cone */
+.searchlight {
+  position: absolute;
+  bottom: 220px;
+  width: 145px;
+  height: 110vh;
+  background: linear-gradient(to top, rgba(226, 234, 244, 0.12), rgba(226, 234, 244, 0.01) 70%, transparent);
+  clip-path: polygon(42% 100%, 58% 100%, 100% 0%, 0% 0%);
+  transform-origin: bottom center;
+  filter: blur(5px);
+}
+
+/* Varredura dos holofotes esquerdo e direito */
+.searchlight-left {
+  left: 16%;
+  animation: sweepLeft 9s ease-in-out infinite alternate;
+}
+
+.searchlight-right {
+  right: 22%;
+  animation: sweepRight 12s ease-in-out infinite alternate;
+}
+
+@keyframes sweepLeft {
+  0% { transform: rotate(-28deg); }
+  100% { transform: rotate(22deg); }
+}
+
+@keyframes sweepRight {
+  0% { transform: rotate(26deg); }
+  100% { transform: rotate(-24deg); }
+}
+
+/* Círculo luminoso e projeção do Bat-Sinal no céu */
+.bat-signal {
+  position: absolute;
+  top: 5%;
+  right: 6%;
+  width: 390px;
+  height: 220px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(248, 250, 252, 0.34) 0%, rgba(226, 232, 240, 0.11) 55%, transparent 76%);
+  box-shadow: 0 0 100px rgba(248, 250, 252, 0.22);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: pulseSignal 6s ease-in-out infinite alternate;
+  z-index: 1;
+}
+
+/* Ícone SVG do morcego dentro do Bat-Sinal */
+.bat-signal-svg {
+  width: 340px;
+  height: 160px;
+  fill: #f8fafc;
+  filter: drop-shadow(0 0 10px rgba(248, 250, 252, 0.65));
+}
+
+/* Pulsação e leve movimento do Bat-Sinal */
+@keyframes pulseSignal {
+  0% {
+    transform: translate(0, 0) scale(0.96) rotate(-4deg);
+    opacity: 0.75;
+  }
+  100% {
+    transform: translate(-25px, 15px) scale(1.05) rotate(4deg);
+    opacity: 1;
+  }
+}
+
+/* Container onde o script.js insere os morcegos */
+.bats-container {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+}
+
+/* Formato de asas de cada morcego recortado via clip-path */
+.bat {
+  position: absolute;
+  width: 24px;
+  height: 12px;
+  background: #030407;
+  opacity: 0.8;
+  clip-path: polygon(
+    50% 20%, 55% 0%, 60% 25%, 80% 10%, 100% 30%,
+    82% 55%, 65% 50%, 50% 85%, 35% 50%, 18% 55%,
+    0% 30%, 20% 10%, 40% 25%, 45% 0%
+  );
+  animation: flyBat linear infinite;
+}
+
+/* Trajetória horizontal dos morcegos pela tela */
+@keyframes flyBat {
+  0% {
+    transform: translateX(-10vw) translateY(0) scale(0.7);
+  }
+  50% {
+    transform: translateX(50vw) translateY(-35px) scale(1);
+  }
+  100% {
+    transform: translateX(110vw) translateY(10px) scale(0.8);
+  }
+}
+
+/* Posicionamento e animação da nave Batwing */
+.batwing {
+  position: absolute;
+  top: 18%;
+  left: -180px;
+  width: 130px;
+  z-index: 2;
+  animation: flyBatwing 18s linear infinite;
+}
+
+.batwing-svg {
+  width: 100%;
+  height: auto;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.92));
+}
+
+/* Luz piscante das turbinas da Batwing */
+.thruster {
+  animation: thrusterGlow 0.25s infinite alternate;
+}
+
+@keyframes thrusterGlow {
+  from { opacity: 0.5; }
+  to { opacity: 1; }
+}
+
+/* Feixe de luz projetado para baixo pela Batwing */
+.batwing-beam {
+  position: absolute;
+  top: 32px;
+  left: 45px;
+  width: 60px;
+  height: 140px;
+  background: linear-gradient(to bottom, rgba(248, 250, 252, 0.14), transparent);
+  clip-path: polygon(35% 0%, 65% 0%, 100% 100%, 0% 100%);
+  transform: rotate(-18deg);
+}
+
+/* Travessia da Batwing pela tela */
+@keyframes flyBatwing {
+  0% {
+    transform: translateX(0) translateY(20px) rotate(-6deg) scale(0.85);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.95;
+  }
+  50% {
+    transform: translateX(65vw) translateY(-35px) rotate(-3deg) scale(1);
+  }
+  92% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateX(125vw) translateY(-70px) rotate(-8deg) scale(0.8);
+    opacity: 0;
+  }
+}
+
+/* Base de alinhamento horizontal para as camadas de prédios */
+.skyline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+/* Camada traseira dos prédios (mais distante e clara) */
+.skyline-back {
+  z-index: 2;
+  opacity: 0.82;
+  padding: 0 1%;
+}
+
+.skyline-back .bldg {
+  background: linear-gradient(180deg, #111822 0%, #090d13 100%);
+  border-top: 2px solid #2b3848;
+  border-right: 1px solid #1a232e;
+  position: relative;
+}
+
+/* Larguras e alturas dos prédios da camada traseira */
+.b-1 { width: 11%; height: 310px; }
+.b-2 { width: 14%; height: 420px; }
+.b-3 { width: 10%; height: 500px; }
+.b-4 { width: 15%; height: 360px; }
+.b-5 { width: 13%; height: 450px; }
+.b-6 { width: 11%; height: 530px; }
+.b-7 { width: 14%; height: 380px; }
+.b-8 { width: 10%; height: 290px; }
+
+/* Agulha decorativa no topo de prédios com .spire */
+.spire::before {
+  content: "";
+  position: absolute;
+  top: -58px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 58px;
+  background: linear-gradient(180deg, #475569, #1e293b);
+  clip-path: polygon(50% 0%, 100% 25%, 80% 100%, 20% 100%, 0% 25%);
+}
+
+/* Camada frontal dos prédios (mais escura e em primeiro plano) */
+.skyline-front {
+  z-index: 3;
+  gap: 4px;
+}
+
+.skyline-front .bldg {
+  background: linear-gradient(180deg, #090c11 0%, #030406 100%);
+  border-top: 2px solid #273342;
+  border-left: 1px solid #18202b;
+  position: relative;
+  box-shadow: inset 0 6px 14px rgba(148, 163, 184, 0.08);
+}
+
+/* Recortes decorativos Art Déco opcionais para prédios */
+.deco-step {
+  clip-path: polygon(
+    0% 100%, 0% 14%, 14% 14%, 14% 6%, 28% 6%,
+    28% 0%, 72% 0%, 72% 6%, 86% 6%, 86% 14%,
+    100% 14%, 100% 100%
+  );
+}
+
+.deco-arch {
+  clip-path: polygon(
+    0% 100%, 0% 10%, 22% 10%, 36% 0%, 64% 0%,
+    78% 10%, 100% 10%, 100% 100%
+  );
+}
+
+/* Larguras e alturas dos prédios da camada frontal */
+.f-1 { width: 10%; height: 250px; }
+.f-2 { width: 11%; height: 340px; }
+.f-3 { width: 9%; height: 440px; }
+.f-4 { width: 12%; height: 270px; }
+.f-5wayne {
+  width: 14%;
+  height: 460px;
+  border-top: 3px solid #3c4b5e;
+}
+.f-6 { width: 11%; height: 290px; }
+.f-7 { width: 10%; height: 420px; }
+.f-8 { width: 12%; height: 240px; }
+.f-9 { width: 10%; height: 320px; }
+
+/* Alinhamento horizontal da ilustração do Batman com o título principal */
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+}
+
+/* Container do Batman que surge junto com os relâmpagos */
+.batman-side {
+  width: 116px;
+  height: 120px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  animation: batmanAppearOnLightning 9s infinite;
+}
+
+/* SVG do Batman com leve balanço vertical */
+.batman-lego-svg {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 0 14px rgba(248, 250, 252, 0.42));
+  animation: legoBodyBounce 1.1s ease-in-out infinite alternate;
+}
+
+@keyframes legoBodyBounce {
+  0% { transform: translateY(0px); }
+  100% { transform: translateY(-3px); }
+}
+
+/* Movimento da capa ao vento */
+.lego-cape {
+  transform-origin: 65px 36px;
+  animation: legoCapeBillow 1s ease-in-out infinite alternate;
+}
+
+@keyframes legoCapeBillow {
+  0% { transform: skewX(-5deg) rotate(-2deg) scaleX(0.97); }
+  50% { transform: skewX(6deg) rotate(2deg) scaleX(1.06); }
+  100% { transform: skewX(-8deg) rotate(-3deg) scaleX(1.09); }
+}
+
+/* Balanço do braço esquerdo e direito */
+.lego-arm-left {
+  transform-origin: 39px 40px;
+  animation: legoLeftSwing 1.15s ease-in-out infinite alternate;
+}
+
+@keyframes legoLeftSwing {
+  0% { transform: rotate(5deg); }
+  100% { transform: rotate(-10deg); }
+}
+
+.lego-arm-right {
+  transform-origin: 91px 40px;
+  animation: legoRightSwing 1.15s ease-in-out infinite alternate;
+}
+
+@keyframes legoRightSwing {
+  0% { transform: rotate(-5deg); }
+  100% { transform: rotate(10deg); }
+}
+
+/* Aparição intermitente do Batman sincronizada com o relâmpago */
+@keyframes batmanAppearOnLightning {
+  0%, 86%, 90%, 94%, 100% {
+    opacity: 0;
+    transform: translateY(4px) scale(0.97);
+  }
+  87% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+  88.5% {
+    opacity: 0.35;
+    transform: translateY(1px) scale(0.99);
+  }
+  91% {
+    opacity: 1;
+    transform: translateY(-1px) scale(1.01);
+  }
+}
+
+/* Selo superior do tema */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(229, 184, 43, 0.12);
+  color: var(--bat-yellow);
+  border: 1px solid rgba(229, 184, 43, 0.42);
+  padding: 4px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+  margin-bottom: 12px;
+}
+
+/* Ícone de Batarang animado dentro do badge */
+.batarang-icon {
+  width: 24px;
+  height: 12px;
+  fill: var(--bat-yellow);
+  filter: drop-shadow(0 0 6px rgba(229, 184, 43, 0.45));
+  animation: batarangSpinHint 3.5s ease-in-out infinite alternate;
+}
+
+@keyframes batarangSpinHint {
+  0% { transform: rotate(-8deg) scale(0.96); }
+  100% { transform: rotate(10deg) scale(1.05); }
+}
+
+/* Luz vermelha piscante no topo das torres */
+.tower::after {
+  content: "";
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #dc2626;
+  box-shadow: 0 0 8px rgba(220, 38, 38, 0.8);
+  animation: beaconBlink 2.4s infinite ease-in-out;
+}
+
+@keyframes beaconBlink {
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.95; }
+}
+
+/* Grade de janelas iluminadas nos prédios com classe .lit */
+.lit::before {
+  content: "";
+  position: absolute;
+  inset: 22px 14px 25px 14px;
+  background-image:
+    radial-gradient(rgba(234, 179, 8, 0.34) 1.5px, transparent 1.5px),
+    radial-gradient(rgba(203, 213, 225, 0.18) 1.5px, transparent 1.5px);
+  background-size: 16px 24px;
+  background-position: 0 0, 8px 12px;
+  animation: windowFlicker 7s infinite alternate;
+}
+
+@keyframes windowFlicker {
+  0% { opacity: 0.65; }
+  50% { opacity: 0.95; }
+  100% { opacity: 0.75; }
+}
+
+/* Chuva diagonal fina sobre o cenário */
+.gotham-rain {
+  position: absolute;
+  inset: -50px;
+  z-index: 4;
+  opacity: 0.24;
+  background-image: repeating-linear-gradient(
+    102deg,
+    transparent 0px,
+    transparent 28px,
+    rgba(203, 213, 225, 0.45) 29px,
+    transparent 30px
+  );
+  background-size: 120px 120px;
+  animation: rainFall 0.65s linear infinite;
+}
+
+@keyframes rainFall {
+  0% { transform: translateY(-60px) translateX(12px); }
+  100% { transform: translateY(60px) translateX(-12px); }
+}
+
+/* Névoa baixa na base dos prédios */
+.gotham-fog {
+  position: absolute;
+  bottom: 0;
+  left: -20%;
+  width: 140%;
+  height: 170px;
+  z-index: 5;
+  background: linear-gradient(to top, rgba(13, 19, 28, 0.94) 0%, rgba(13, 19, 28, 0.42) 55%, transparent 100%);
+  animation: fogDrift 14s ease-in-out infinite alternate;
+}
+
+@keyframes fogDrift {
+  0% { transform: translateX(-3%); }
+  100% { transform: translateX(3%); }
+}
+
+/* Container centralizado do conteúdo principal */
+.container {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  position: relative;
+  z-index: 10;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+header h1 {
+  font-size: 2.6rem;
+  letter-spacing: 3px;
+  color: #f8fafc;
+  text-shadow: 0 0 22px rgba(229, 184, 43, 0.2);
+}
+
+.subtitle {
+  color: #94a3b8;
+  margin-top: 8px;
+  font-size: 1.05rem;
+}
+
+/* Barra de botões/labels das abas */
+.tabs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.tab-btn {
+  background: rgba(15, 21, 30, 0.88);
+  color: #cbd5e1;
+  border: 1px solid #283342;
+  padding: 12px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.tab-btn:hover {
+  border-color: var(--bat-yellow);
+  color: var(--bat-yellow);
+}
+
+/* Caixa principal onde aparece o conteúdo da aba selecionada */
+.content-box {
+  background: rgba(11, 15, 22, 0.9);
+  border: 1px solid #232d3b;
+  border-radius: 14px;
+  padding: 32px;
+  backdrop-filter: blur(8px);
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.65);
+}
+
+/* Conteúdo das abas oculto por padrão até o input radio correspondente ficar :checked */
+.tab-content {
+  display: none;
+}
+
+/* Animação de entrada da aba ativa */
+@keyframes hudSlide {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+h2 {
+  color: var(--bat-yellow);
+  margin-bottom: 18px;
+  border-bottom: 1px solid #232d3b;
+  padding-bottom: 10px;
+  font-size: 1.5rem;
+}
+
+p {
+  line-height: 1.7;
+  color: #cbd5e1;
+  margin-bottom: 14px;
+}
+
+/* Grid de tecnologias */
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.skill {
+  background: #141c27;
+  border: 1px solid #2d3a4c;
+  color: var(--bat-yellow);
+  padding: 6px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+/* Grid responsivo de cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.card {
+  background: #0f141d;
+  border: 1px solid #222c3a;
+  padding: 20px;
+  border-radius: 10px;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  border-color: var(--bat-yellow);
+}
+
+.card h3 {
+  color: #f8fafc;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.tag {
+  display: inline-block;
+  margin-top: 8px;
+  font-size: 0.8rem;
+  color: var(--bat-yellow);
+  background: rgba(229, 184, 43, 0.1);
+  padding: 3px 10px;
+  border-radius: 4px;
+}
+
+/* Linha do tempo vertical de conquistas */
+.timeline {
+  list-style: none;
+  border-left: 2px solid var(--bat-yellow);
+  padding-left: 20px;
+  margin-left: 8px;
+}
+
+.timeline li {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.timeline li::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 5px;
+  width: 12px;
+  height: 12px;
+  background: var(--bat-yellow);
+  border-radius: 50%;
+}
+
+.timeline strong {
+  display: block;
+  color: #f8fafc;
+  font-size: 1.05rem;
+  margin-bottom: 4px;
+}
+
+.timeline span {
+  color: #94a3b8;
+  font-size: 0.95rem;
+}
+
+footer {
+  text-align: center;
+  margin-top: 30px;
+}
+
+footer a {
+  color: var(--bat-yellow);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+/* Esconde visualmente os inputs radio mantendo o funcionamento nativo ao clicar nos labels */
+.tabs-wrapper input[type="radio"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Destaca o label da aba selecionada */
+#tab-sobre:checked ~ .tabs label[for="tab-sobre"],
+#tab-hobbies:checked ~ .tabs label[for="tab-hobbies"],
+#tab-projetos:checked ~ .tabs label[for="tab-projetos"],
+#tab-conquistas:checked ~ .tabs label[for="tab-conquistas"],
+#tab-metas:checked ~ .tabs label[for="tab-metas"] {
+  background: var(--bat-yellow);
+  color: #06080c;
+  font-weight: 800;
+  border-color: var(--bat-yellow);
+  box-shadow: 0 0 25px var(--bat-yellow-glow);
+  transform: translateY(-2px);
+}
+
+/* Mostra contorno de foco ao navegar por teclado */
+#tab-sobre:focus-visible ~ .tabs label[for="tab-sobre"],
+#tab-hobbies:focus-visible ~ .tabs label[for="tab-hobbies"],
+#tab-projetos:focus-visible ~ .tabs label[for="tab-projetos"],
+#tab-conquistas:focus-visible ~ .tabs label[for="tab-conquistas"],
+#tab-metas:focus-visible ~ .tabs label[for="tab-metas"] {
+  outline: 2px solid var(--bat-yellow);
+  outline-offset: 3px;
+}
+
+/* Exibe o conteúdo correspondente à aba marcada */
+#tab-sobre:checked ~ .content-box #sobre,
+#tab-hobbies:checked ~ .content-box #hobbies,
+#tab-projetos:checked ~ .content-box #projetos,
+#tab-conquistas:checked ~ .content-box #conquistas,
+#tab-metas:checked ~ .content-box #metas {
+  display: block;
+  animation: hudSlide 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Ajustes de layout para telas menores */
+@media (max-width: 600px) {
+  .hero-top {
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  header h1 {
+    font-size: 1.9rem;
+    letter-spacing: 2px;
+  }
+
+  .bat-signal {
+    width: 240px;
+    height: 140px;
+    right: 2%;
+  }
+
+  .bat-signal-svg {
+    width: 200px;
+    height: 100px;
+  }
+
+  .content-box {
+    padding: 20px;
+  }
+}
